@@ -1,0 +1,35 @@
+{
+  "name": "zzoom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "yarn --cwd server && yarn --cwd client",
+    "dev": "concurrently \"yarn --cwd server dev\" \"yarn --cwd client start\"",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "read0more",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "concurrently": "^7.2.2",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-prettier": "^4.1.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": ">=7",
+    "lint-staged": ">=10",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  },
+  "lint-staged": {
+    "*.{ts}": "eslint --cache --fix",
+    "*.{ts,tsx,css,md}": "prettier --write"
+  }
+}
