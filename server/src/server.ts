@@ -48,6 +48,22 @@ io.on('connection', (socket: TWebsocket) => {
       done();
     }
   );
+
+  socket.on('ready_call', (roomName) => {
+    socket.to(roomName).emit('ready_call');
+  });
+
+  socket.on('offer', (offer, roomName) => {
+    socket.to(roomName).emit('offer', offer);
+  });
+
+  socket.on('answer', (answer, roomName) => {
+    socket.to(roomName).emit('answer', answer);
+  });
+
+  socket.on('ice', (ice, roomName) => {
+    socket.to(roomName).emit('ice', ice);
+  });
 });
 
 server.listen(process.env.PORT, handleListen);

@@ -1,20 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Video from './Video';
 
 export default function Step2({
   backToIndex,
   chatList,
   sendMessage,
   myStream,
+  peerStream,
 }: {
   backToIndex: () => void;
   chatList: string[];
   sendMessage: (message: string) => void;
   myStream: MediaStream | null;
+  peerStream: MediaStream | null;
 }) {
   const [chat, setChat] = useState('');
   const [mute, setMute] = useState(false);
   const [cameraOff, setCameraOff] = useState(false);
-  const ownerVideoRef = useRef<HTMLVideoElement>(null);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -40,12 +42,6 @@ export default function Step2({
     setCameraOff(!cameraOff);
   };
 
-  useEffect(() => {
-    if (ownerVideoRef.current) {
-      ownerVideoRef.current.srcObject = myStream;
-    }
-  }, [myStream]);
-
   return (
     <>
       <ul>
@@ -67,12 +63,12 @@ export default function Step2({
         </label>
       </form>
       <div>
-        <video
+        <Video
           width={400}
           height={400}
           autoPlay
           playsInline
-          ref={ownerVideoRef}
+          srcObject={myStream}
         />
         <button type='button' onClick={handleMic}>
           {`소리 ${mute ? '켜기' : '끄기'}`}
@@ -83,7 +79,13 @@ export default function Step2({
         {/* todo: 카메라들 선택 되게. <select></select> */}
       </div>
       <div>
-        <video width={400} height={400} autoPlay playsInline />
+        <Video
+          width={400}
+          height={400}
+          autoPlay
+          playsInline
+          srcObject={peerStream}
+        />
       </div>
 
       <button type='button' onClick={backToIndex}>
